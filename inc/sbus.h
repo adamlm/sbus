@@ -11,8 +11,14 @@
 #define SBUS_START_BYTE 0x0FU
 #define SBUS_END_BYTE 0x00U
 
-#define SBUS_FRAME_AVAIL 1U
-#define SBUS_FRAME_NOT_AVAIL 0U
+#define SBUS_FRAME_READY 1U
+#define SBUS_FRAME_NOT_READY 0U
+
+#define SBUS_CHANNEL_COUNT 16U
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 typedef struct {
     uint16_t channel0;
@@ -35,5 +41,10 @@ typedef struct {
 
 uint8_t SBus_ParseByte(uint8_t byte);
 void SBus_DecodeFrame(void);
+uint16_t SBus_GetChannel(uint8_t channel);
+
+#ifdef __cplusplus
+};
+#endif
 
 #endif //SBUS_SBUS_H
