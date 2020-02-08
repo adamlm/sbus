@@ -22,7 +22,7 @@ uint8_t SBus_ParseByte(uint8_t byte) {
 
         if (frameIndex >= SBUS_FRAME_SIZE) {
             if (byte == SBUS_END_BYTE) {
-                return SBUS_FRAME_AVAIL;
+                return SBUS_FRAME_READY;
             }
 
             frameIndex = 0U;
@@ -30,7 +30,7 @@ uint8_t SBus_ParseByte(uint8_t byte) {
         }
     }
 
-    return SBUS_FRAME_NOT_AVAIL;
+    return SBUS_FRAME_NOT_READY;
 }
 
 void SBus_DecodeFrame(void) {
@@ -41,7 +41,7 @@ void SBus_DecodeFrame(void) {
     packet.channel4 = ((frame[7] & 0x7FU) << 4U) | ((frame[6] & 0xF0U) >> 4U);
     packet.channel5 = ((frame[9] & 0x03U) << 9U) | ((frame[8] & 0xFFU) << 1U) | ((frame[7] & 0x80U) >> 7U);
     packet.channel6 = ((frame[10] & 0x1FU) << 6U) | ((frame[9] & 0xFCU) >> 2U);
-    packet.channel7 = ((frame[2] & 0xFFU) << 3U) | ((frame[10] & 0xE0U) >> 5U);
+    packet.channel7 = ((frame[11] & 0xFFU) << 3U) | ((frame[10] & 0xE0U) >> 5U);
     packet.channel8 = ((frame[13] & 0x03U) << 8U) | frame[12];
     packet.channel9 = ((frame[14] & 0x3FU) << 5U) | ((frame[13] & 0xF8U) >> 3U);
     packet.channel10 = ((frame[16] & 0x01U) << 10U) | ((frame[15] & 0xFFU) << 2U) | ((frame[14] & 0xC0U) >> 6U);
@@ -50,4 +50,8 @@ void SBus_DecodeFrame(void) {
     packet.channel13 = ((frame[20] & 0x03U) << 9U) | ((frame[19] & 0xFFU) << 1U) | ((frame[18] & 0x80U) >> 7U);
     packet.channel14 = ((frame[21] & 0x1FU) << 6U) | ((frame[20] & 0xFCU) >> 2U);
     packet.channel15 = ((frame[22] & 0xFFU) << 3U) | ((frame[21] & 0xE0U) >> 5U);
+}
+
+uint16_t SBus_GetChannel(uint8_t channel) {
+    return ((uint16_t *)&packet)[channel];
 }
