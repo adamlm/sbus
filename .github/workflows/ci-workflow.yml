@@ -13,4 +13,4 @@ jobs:
           cd cmake-build-debug
           cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" ..
       - name: Build
-        run: cmake --build sbus/cmake-build-debug --target all
+        run: cmake --build cmake-build-debug --target all
