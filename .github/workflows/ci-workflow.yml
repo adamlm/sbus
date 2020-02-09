@@ -1,0 +1,18 @@
+name: Continuous Integration (CI)
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Configure
+        run: |
+          mkdir cmake-build-debug
+          cd cmake-build-debug
+          cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" ..
+      - name: Build
+        run: cmake --build cmake-build-debug --target all
+      - name: Unit Tests
+        run: cmake-build-debug/test/Google_Tests_run --gtest_filter=SBusTest.*:SBusTest/*.*:*/SBusTest.*/*:*/SBusTest/*.* --gtest_color=no
