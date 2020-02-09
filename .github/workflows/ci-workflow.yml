@@ -8,6 +8,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Configure
-        run: cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" ./
+        run: |
+          mkdir cmake-build-debug
+          cd cmake-build-debug
+          cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" ./
       - name: Build
         run: cmake --build sbus/cmake-build-debug --target all
