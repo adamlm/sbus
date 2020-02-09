@@ -14,3 +14,5 @@ jobs:
           cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" ..
       - name: Build
         run: cmake --build cmake-build-debug --target all
+      - name: Unit Tests
+        run: cmake-build-debug/test/Google_Tests_run --gtest_filter=SBusTest.*:SBusTest/*.*:*/SBusTest.*/*:*/SBusTest/*.* --gtest_color=no
