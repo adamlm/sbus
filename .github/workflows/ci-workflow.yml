@@ -1,0 +1,13 @@
+name: Continuous Integration (CI)
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Configure
+        run: cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" ./
+      - name: Build
+        run: cmake --build sbus/cmake-build-debug --target all
