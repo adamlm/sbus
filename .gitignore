@@ -128,6 +128,3 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
-
-# Includes docs directory
-doc/
